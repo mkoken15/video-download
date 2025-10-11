@@ -1,93 +1,250 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music MP3 - iOS 26 Style</title>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    <meta charset="utf-8">
-    <title>Page avec Mode Sombre</title>
     <style>
-        body.lumineux { background-color: white; color: black; }
-        body.sombre { background-color: #121212; color: #e0e0e0; }
+        :root {
+            --bg-light: #F5F5F7;
+            --bg-dark: #1C2526;
+            --text-light: #000000;
+            --text-dark: #E0E0E0;
+            --accent-color: #007AFF;
+            --card-bg: rgba(255, 255, 255, 0.1);
+            --border-radius: 16px;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
 
-        /* Styles pour les boutons de navigation */
-        ul {
-            list-style-type: none;
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro', sans-serif;
             margin: 0;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        body.lumineux {
+            background-color: var(--bg-light);
+            color: var(--text-light);
+        }
+
+        body.sombre {
+            background-color: var(--bg-dark);
+            color: var(--text-dark);
+        }
+
+        header {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        nav ul {
+            list-style: none;
             padding: 0;
-            text-align: center; /* Centrer les éléments */
-        }
-        
-        li {
-            display: inline;
-            margin: 0 15px; /* Espacement entre les liens */
-        }
-
-        a {
-            text-decoration: none; /* Enlever le soulignement */
-            color: inherit; /* Utiliser la couleur du texte */
-            padding: 10px 15px; /* Espacement à l'intérieur des liens */
-            border-radius: 5px; /* Coins arrondis */
-            transition: background-color 0.3s, color 0.3s; /* Transition douce pour les effets de survol */
-        }
-
-        a:hover {
-            background-color: #2196F3; /* Couleur de fond au survol */
-            color: white; /* Couleur du texte au survol */
-        }
-
-        /* Styles pour l'interrupteur */
-        .switch { position: relative; width: 50px; height: 24px; display: inline-block; }
-        .switch input { opacity: 0; width: 0; height: 0; }
-        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px; }
-        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
-        input:checked + .slider { background-color: #2196F3; }
-        input:checked + .slider:before { transform: translateX(26px); }
-
-        /* Styles pour la barre de recherche */
-        #site-search {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
             margin: 20px 0;
-            padding: 10px;
-            width: 300px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: inherit;
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .switch {
+            position: relative;
+            width: 50px;
+            height: 30px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.4s;
+            border-radius: var(--border-radius);
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 24px;
+            width: 24px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--accent-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(20px);
+        }
+
+        .search-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        #site-search {
+            width: 100%;
+            max-width: 400px;
+            padding: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            background-color: var(--card-bg);
+            backdrop-filter: blur(10px);
         }
 
         button {
-            padding: 10px 15px;
+            padding: 12px 24px;
             border: none;
-            border-radius: 5px;
-            background-color: #4CAF50;
+            border-radius: var(--border-radius);
+            background-color: var(--accent-color);
             color: white;
+            font-size: 16px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s ease;
         }
 
         button:hover {
-            background-color: #45a049;
+            background-color: #005BB5;
+        }
+
+        .settings-panel {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin: 20px auto;
+            max-width: 400px;
+            backdrop-filter: blur(10px);
+        }
+
+        .settings-panel label {
+            display: block;
+            margin: 10px 0 5px;
+            font-size: 14px;
+        }
+
+        .settings-panel select {
+            width: 100%;
+            padding: 10px;
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            background-color: var(--card-bg);
+        }
+
+        .video-preview {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .history {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        .history ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .history li {
+            padding: 10px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
 <body onload="set_style_from_cookie()">
-    <center>
+    <header>
         <h1>Music MP3</h1>
-    </center>
+        <label class="switch">
+            <input type="checkbox" id="themeSwitch" onclick="toggleTheme()">
+            <span class="slider"></span>
+        </label>
+    </header>
 
-    <ul>
-        <li><a href="default.asp">Home</a></li>
-        <li><a href="news.asp">News</a></li>
-        <li><a href="contact.asp">Contact</a></li>
-        <li><a href="about.asp">About</a></li>
-    </ul>
+    <nav>
+        <ul>
+            <li><a href="default.asp">Accueil</a></li>
+            <li><a href="news.asp">Actualités</a></li>
+            <li><a href="contact.asp">Contact</a></li>
+            <li><a href="about.asp">À propos</a></li>
+        </ul>
+    </nav>
 
-    <label class="switch">
-        <input type="checkbox" id="themeSwitch" onclick="toggleTheme()">
-        <span class="slider"></span>
-    </label>
-    
-    <label for="site-search">Entrez le lien YouTube :</label>
-    <input type="search" id="site-search" name="q" placeholder="https://www.youtube.com/...">
-    <button onclick="downloadVideo()">Télécharger</button>
+    <main>
+        <div class="search-container">
+            <label for="site-search">Entrez le lien YouTube :</label>
+            <input type="search" id="site-search" name="q" placeholder="https://www.youtube.com/..." oninput="validateYouTubeURL()">
+            <button onclick="downloadVideo()">Télécharger</button>
+        </div>
+
+        <div class="video-preview" id="video-preview"></div>
+
+        <div class="settings-panel">
+            <h3>Paramètres</h3>
+            <label for="quality">Qualité du téléchargement :</label>
+            <select id="quality">
+                <option value="high">Élevée (320kbps)</option>
+                <option value="medium">Moyenne (192kbps)</option>
+                <option value="low">Basse (128kbps)</option>
+            </select>
+            <label for="format">Format :</label>
+            <select id="format">
+                <option value="mp3">MP3</option>
+                <option value="m4a">M4A</option>
+            </select>
+        </div>
+
+        <div class="history">
+            <h3>Historique des téléchargements</h3>
+            <ul id="download-history"></ul>
+        </div>
+    </main>
 
     <script>
+        // Gestion du thème
         function toggleTheme() {
             const isDarkMode = document.getElementById('themeSwitch').checked;
             document.body.className = isDarkMode ? 'sombre' : 'lumineux';
@@ -98,37 +255,85 @@
             const match = document.cookie.match(new RegExp('(?:^|; )style=([^;]*)'));
             const css_title = match ? decodeURIComponent(match[1]) : 'lumineux';
             document.body.className = css_title;
-            document.getElementById('themeSwitch').checked = (css_title === 'sombre');
+            document.getElementById('themeSwitch').checked = css_title === 'sombre';
         }
 
-        async function downloadVideo() {
+        // Validation de l'URL YouTube
+        function validateYouTubeURL() {
             const url = document.getElementById('site-search').value;
-            if (url) {
-                try {
-                    // Envoie une requête GET au backend avec l'URL de la vidéo YouTube
-                    const response = await fetch(`/download?url=${encodeURIComponent(url)}`);
-                    
-                    if (response.ok) {
-                        const blob = await response.blob();
-                        const downloadUrl = window.URL.createObjectURL(blob);
-                        const a = document.createElement("a");
-                        a.href = downloadUrl;
-                        a.download = "video.mp3";  // Nom du fichier à télécharger
-                        document.body.appendChild(a);
-                        a.click();
-                        a.remove();
-                        window.URL.revokeObjectURL(downloadUrl);
-                    } else {
-                        alert("Erreur lors du téléchargement. Vérifiez l'URL ou réessayez plus tard.");
-                    }
-                } catch (error) {
-                    console.error("Erreur:", error);
-                    alert("Une erreur est survenue. Veuillez réessayer.");
-                }
+            const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/(watch\?v=|embed\/|v\/|.+\?v=)?([^&=]{11})(.*)?$/;
+            const match = url.match(youtubeRegex);
+            const previewDiv = document.getElementById('video-preview');
+
+            if (match) {
+                const videoId = match[5];
+                previewDiv.innerHTML = `
+                    <h4>Prévisualisation :</h4>
+                    <iframe width="300" height="169" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
+                `;
             } else {
-                alert('Veuillez entrer un lien YouTube valide.');
+                previewDiv.innerHTML = '';
             }
         }
+
+        // Gestion du téléchargement
+        async function downloadVideo() {
+            const url = document.getElementById('site-search').value;
+            const quality = document.getElementById('quality').value;
+            const format = document.getElementById('format').value;
+            const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/(watch\?v=|embed\/|v\/|.+\?v=)?([^&=]{11})(.*)?$/;
+
+            if (!url.match(youtubeRegex)) {
+                alert('Veuillez entrer un lien YouTube valide.');
+                return;
+            }
+
+            try {
+                // Simulation de l'appel au backend
+                const response = await fetch(`/download?url=${encodeURIComponent(url)}&quality=${quality}&format=${format}`);
+                
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const downloadUrl = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = downloadUrl;
+                    a.download = `video.${format}`;
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                    window.URL.revokeObjectURL(downloadUrl);
+
+                    // Ajouter à l'historique
+                    addToHistory(url);
+                } else {
+                    alert('Erreur lors du téléchargement. Vérifiez l’URL ou réessayez.');
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                alert('Une erreur est survenue. Veuillez réessayer.');
+            }
+        }
+
+        // Gestion de l'historique
+        function addToHistory(url) {
+            const historyList = document.getElementById('download-history');
+            const history = JSON.parse(localStorage.getItem('downloadHistory')) || [];
+            history.unshift(url);
+            localStorage.setItem('downloadHistory', JSON.stringify(history.slice(0, 5))); // Limite à 5 éléments
+            updateHistory();
+        }
+
+        function updateHistory() {
+            const historyList = document.getElementById('download-history');
+            const history = JSON.parse(localStorage.getItem('downloadHistory')) || [];
+            historyList.innerHTML = history.map(url => `<li>${url}</li>`).join('');
+        }
+
+        // Initialiser l'historique au chargement
+        window.onload = () => {
+            set_style_from_cookie();
+            updateHistory();
+        };
     </script>
 </body>
 </html>
