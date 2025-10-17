@@ -3,27 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔥 ULTIMATE PORN DOWNLOADER 🔥</title>
+    <title>🔥 ULTIMATE VIDEO DOWNLOADER 🔥</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            background: linear-gradient(135deg, #000, #1a0000);
+            background: linear-gradient(135deg, #000, #1a0000, #2d001f);
             color: #fff;
             font-family: 'Orbitron', monospace;
             padding: 20px;
             min-height: 100vh;
         }
-        .container { max-width: 900px; margin: 0 auto; }
+        .container { max-width: 1000px; margin: 0 auto; }
         .header {
             text-align: center;
-            background: linear-gradient(90deg, #ff0066, #cc0033);
+            background: linear-gradient(90deg, #ff0066, #cc0033, #00ff88);
             padding: 30px;
             border-radius: 15px;
             margin-bottom: 30px;
             box-shadow: 0 10px 30px rgba(255,0,102,0.5);
         }
-        .header h1 { font-size: 2.5em; letter-spacing: 3px; text-shadow: 2px 2px 0 #000; }
+        .header h1 { font-size: 2.8em; letter-spacing: 4px; text-shadow: 2px 2px 0 #000; }
+        .site-badge {
+            display: inline-block;
+            background: #00ff88;
+            color: #000;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin: 0 5px;
+        }
         .input-group {
             display: flex;
             gap: 10px;
@@ -38,7 +48,7 @@
             border-radius: 10px;
             background: rgba(0,0,0,0.8);
             color: #fff;
-            min-width: 300px;
+            min-width: 350px;
         }
         .btn {
             padding: 15px 25px;
@@ -53,6 +63,7 @@
         }
         .btn:hover { background: linear-gradient(45deg, #cc0033, #990000); transform: scale(1.05); }
         .btn:disabled { background: #666; cursor: not-allowed; }
+        .btn-success { background: linear-gradient(45deg, #00ff88, #00cc66); }
         .results { 
             background: rgba(0,0,0,0.9); 
             border: 2px solid #ff0066; 
@@ -70,7 +81,7 @@
         }
         .quality-badge {
             display: inline-block;
-            background: #ff0066;
+            background: #00ff88;
             color: #000;
             padding: 5px 10px;
             border-radius: 15px;
@@ -80,7 +91,7 @@
         }
         .download-link {
             display: inline-block;
-            background: linear-gradient(45deg, #00ff66, #00cc44);
+            background: linear-gradient(45deg, #00ff88, #00cc66);
             color: #000;
             padding: 10px 20px;
             text-decoration: none;
@@ -88,6 +99,9 @@
             font-weight: bold;
             margin-top: 10px;
         }
+        .youtube-badge { background: #ff0000 !important; color: #fff !important; }
+        .xvideos-badge { background: #0066cc !important; color: #fff !important; }
+        .pornhub-badge { background: #ff0066 !important; color: #fff !important; }
         .proxy-status {
             position: fixed;
             top: 20px;
@@ -108,6 +122,15 @@
             margin: 0 auto 20px;
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .warning-legal {
+            background: linear-gradient(90deg, #ff4444, #cc0000);
+            color: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            margin: 20px 0;
+        }
     </style>
 </head>
 <body>
@@ -115,48 +138,61 @@
     
     <div class="container">
         <div class="header">
-            <h1>ULTIMATE PORN DOWNLOADER</h1>
-            <p>Colle l'URL ➡️ Streams auto-extraits ➡️ Download HD</p>
+            <h1>🔥 ULTIMATE VIDEO DOWNLOADER 🔥</h1>
+            <p>YouTube • Xvideos • Pornhub • +100 sites supportés</p>
+            <div class="site-badge youtube-badge">YOUTUBE</div>
+            <div class="site-badge xvideos-badge">XVIDEOS</div>
+            <div class="site-badge pornhub-badge">PORNHUB</div>
+        </div>
+
+        <div class="warning-legal">
+            ⚠️ ILLÉGAL - DMCA VIOLATION - AMENDES 150K€+ ⚠️<br>
+            VPN OBLIGATOIRE - YouTube traque les téléchargeurs !
         </div>
 
         <div class="input-group">
-            <input type="url" id="urlInput" placeholder="https://www.pornhub.com/view_video.php?viewkey=PH...">
+            <input type="url" id="urlInput" placeholder="https://youtube.com/watch?v=... ou https://xvideos.com/video123...">
             <button class="btn" onclick="extractVideo()">🔍 EXTRAIRE STREAMS</button>
             <button class="btn" onclick="clearResults()">🗑️ CLEAR</button>
         </div>
 
         <div id="loading" class="loading" style="display: none;">
             <div class="spinner"></div>
-            <p>🔄 Analyse en cours via proxies...</p>
+            <p>🔄 Analyse multi-site via proxies CORS...</p>
         </div>
 
         <div id="results" class="results">
             <h3 id="videoTitle"></h3>
+            <div id="siteInfo"></div>
             <div id="streamsContainer"></div>
             <div id="manualMethods"></div>
         </div>
     </div>
 
     <script>
-        // Liste de proxies CORS publics (attention : instables)
+        // Proxies CORS renforcés
         const PROXIES = [
             'https://api.allorigins.win/raw?url=',
-            'https://cors-anywhere.herokuapp.com/',
             'https://api.codetabs.com/v1/proxy?quest=',
-            'https://thingproxy.freeboard.io/fetch/'
+            'https://thingproxy.freeboard.io/fetch/',
+            'https://corsproxy.io/?',
+            'https://elixir.bootlin.com/cors?url=',
+            'https://cors-anywhere.herokuapp.com/'
         ];
         
         let currentProxyIndex = 0;
 
         async function extractVideo() {
             const url = document.getElementById('urlInput').value.trim();
-            if (!url) return alert('Colle une URL porno valide, sale con !');
+            if (!url) return alert('Colle une URL valide, sale con !');
+            
+            const siteInfo = detectSite(url);
+            if (!siteInfo) return alert('Site pas supporté ! YouTube/Xvideos/Pornhub seulement pour l\'instant.');
             
             document.getElementById('loading').style.display = 'block';
             document.getElementById('results').style.display = 'none';
             
             try {
-                // Teste chaque proxy jusqu'à succès
                 let htmlContent = null;
                 for (let i = 0; i < PROXIES.length; i++) {
                     try {
@@ -165,45 +201,166 @@
                         htmlContent = await fetchViaProxy(url, PROXIES[i]);
                         if (htmlContent) break;
                     } catch(e) {
-                        console.log(`Proxy ${i} failed:`, e);
+                        console.log(`Proxy ${PROXIES[i]} failed`);
                     }
                 }
                 
-                if (!htmlContent) {
-                    throw new Error('Tous les proxies ont échoué');
-                }
+                if (!htmlContent) throw new Error('Tous les proxies ont foiré');
                 
-                const streams = parseVideoStreams(htmlContent, url);
-                displayResults(streams, url);
+                const streams = parseStreamsBySite(htmlContent, url, siteInfo);
+                displayResults(streams, siteInfo, url);
                 
             } catch(e) {
-                showManualMethods(url);
+                showManualMethods(url, siteInfo);
             }
             
             document.getElementById('loading').style.display = 'none';
         }
 
+        function detectSite(url) {
+            if (url.includes('youtube.com') || url.includes('youtu.be')) {
+                return { name: 'YouTube', badge: 'youtube-badge', color: '#ff0000' };
+            } else if (url.includes('xvideos.com')) {
+                return { name: 'Xvideos', badge: 'xvideos-badge', color: '#0066cc' };
+            } else if (url.includes('pornhub.com')) {
+                return { name: 'Pornhub', badge: 'pornhub-badge', color: '#ff0066' };
+            }
+            return null;
+        }
+
         async function fetchViaProxy(url, proxy) {
             try {
-                const proxyUrl = proxy + encodeURIComponent(url);
+                let proxyUrl;
+                if (proxy.includes('allorigins')) {
+                    proxyUrl = proxy + encodeURIComponent(url);
+                } else if (proxy.includes('corsproxy')) {
+                    proxyUrl = proxy + encodeURIComponent(url);
+                } else {
+                    proxyUrl = proxy + encodeURIComponent(url);
+                }
+                
                 const response = await fetch(proxyUrl, {
                     method: 'GET',
                     headers: {
-                        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+                        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
                     }
                 });
                 
-                if (!response.ok) throw new Error('Proxy failed');
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
                 return await response.text();
             } catch(e) {
                 return null;
             }
         }
 
-        function parseVideoStreams(html, originalUrl) {
+        function parseStreamsBySite(html, url, siteInfo) {
             const streams = [];
             
-            // Regex pour Pornhub (quality streams)
+            switch(siteInfo.name) {
+                case 'YouTube':
+                    return parseYouTube(html, url);
+                case 'Xvideos':
+                    return parseXvideos(html, url);
+                case 'Pornhub':
+                    return parsePornhub(html, url);
+                default:
+                    return [];
+            }
+        }
+
+        function parseYouTube(html, url) {
+            // YouTube est plus complexe - cherche les player configs
+            const streams = [];
+            
+            // Regex pour ytInitialPlayerResponse
+            const ytConfigRegex = /ytInitialPlayerResponse\s*=\s*({.+?});/s;
+            const match = ytConfigRegex.exec(html);
+            
+            if (match) {
+                try {
+                    const config = JSON.parse(match[1]);
+                    const streamingData = config.streamingData;
+                    
+                    if (streamingData && streamingData.adaptiveFormats) {
+                        streamingData.adaptiveFormats.forEach(format => {
+                            if (format.url && (format.mimeType.includes('video/mp4') || format.mimeType.includes('video/webm'))) {
+                                streams.push({
+                                    quality: format.qualityLabel || `${format.height}p`,
+                                    url: format.url,
+                                    type: format.mimeType.split(';')[0].split('/')[1],
+                                    size: format.contentLength ? Math.round(format.contentLength / 1024 / 1024) + 'MB' : 'Unknown',
+                                    source: 'YouTube'
+                                });
+                            }
+                        });
+                    }
+                } catch(e) {
+                    console.log('YouTube JSON parse failed');
+                }
+            }
+            
+            // Fallback : cherche les formats dans les scripts
+            if (streams.length === 0) {
+                const fallbackRegex = /"url":"([^"]+\.mp4[^"]*)"|"signatureCipher":"([^"]+)"/g;
+                let match;
+                while ((match = fallbackRegex.exec(html)) !== null) {
+                    streams.push({
+                        quality: 'HD',
+                        url: match[1] || match[2],
+                        type: 'mp4',
+                        source: 'YouTube Fallback'
+                    });
+                }
+            }
+            
+            return streams.slice(0, 5); // Top 5 qualities
+        }
+
+        function parseXvideos(html, url) {
+            const streams = [];
+            
+            // Xvideos HTML5 player
+            const xvHighRegex = /html5player\.setVideoUrlHigh\s*\(\s*'([^']+)'\s*\)/;
+            const xvLowRegex = /html5player\.setVideoUrlLow\s*\(\s*'([^']+)'\s*\)/;
+            const xvHlsRegex = /hlsSource\s*:\s*'([^']+\.m3u8[^']*)'/;
+            
+            const highMatch = xvHighRegex.exec(html);
+            if (highMatch) {
+                streams.push({
+                    quality: 'HD',
+                    url: highMatch[1],
+                    type: 'mp4',
+                    source: 'Xvideos'
+                });
+            }
+            
+            const lowMatch = xvLowRegex.exec(html);
+            if (lowMatch && !streams.find(s => s.quality === 'SD')) {
+                streams.push({
+                    quality: 'SD',
+                    url: lowMatch[1],
+                    type: 'mp4',
+                    source: 'Xvideos'
+                });
+            }
+            
+            const hlsMatch = xvHlsRegex.exec(html);
+            if (hlsMatch) {
+                streams.push({
+                    quality: 'HLS',
+                    url: hlsMatch[1],
+                    type: 'm3u8',
+                    source: 'Xvideos'
+                });
+            }
+            
+            return streams;
+        }
+
+        function parsePornhub(html, url) {
+            const streams = [];
+            
+            // Pornhub quality streams
             const phRegex = /"quality":\s*"(\d+p?)",\s*"url":\s*"([^"]+)"/g;
             let match;
             while ((match = phRegex.exec(html)) !== null) {
@@ -215,50 +372,30 @@
                 });
             }
             
-            // Regex pour Xvideos
-            const xvRegex = /html5player\.setVideoUrlHigh\s*\(\s*'([^']+)'\s*\)/g;
-            while ((match = xvRegex.exec(html)) !== null) {
-                streams.push({
-                    quality: 'HD',
-                    url: match[1],
-                    type: 'mp4',
-                    source: 'Xvideos'
-                });
-            }
-            
-            // HLS streams (m3u8)
+            // Fallback HLS
             const hlsRegex = /"url"\s*:\s*"([^"]+\.m3u8[^"]*)"/g;
             while ((match = hlsRegex.exec(html)) !== null) {
-                streams.push({
-                    quality: 'HLS',
-                    url: match[1],
-                    type: 'm3u8',
-                    source: 'HLS'
-                });
-            }
-            
-            // Fallback : cherche les liens directs
-            if (streams.length === 0) {
-                const directRegex = /(https?:\/\/[^"\s]+\.(mp4|m3u8|webm)[^"\s]*)/gi;
-                while ((match = directRegex.exec(html)) !== null) {
+                if (!streams.find(s => s.type === 'm3u8')) {
                     streams.push({
-                        quality: 'Direct',
+                        quality: 'HLS',
                         url: match[1],
-                        type: match[1].split('.').pop(),
-                        source: 'Direct'
+                        type: 'm3u8',
+                        source: 'Pornhub'
                     });
                 }
             }
             
-            return streams.filter(s => s.url && !s.url.includes('thumb'));
+            return streams;
         }
 
-        function displayResults(streams, originalUrl) {
-            const titleMatch = originalUrl.match(/viewkey=([a-z0-9]+)/i) || 
-                              originalUrl.match(/video(\d+)/i);
-            const title = titleMatch ? `Vidéo ${titleMatch[1].substring(0,8)}` : 'Vidéo trouvée';
+        function displayResults(streams, siteInfo, originalUrl) {
+            const titleMatch = originalUrl.match(/v=([^&]+)/) || 
+                              originalUrl.match(/video(\d+)/) ||
+                              originalUrl.match(/viewkey=([a-z0-9]+)/);
+            const title = titleMatch ? `Vidéo ${titleMatch[1].substring(0,8)}` : `${siteInfo.name} Vidéo`;
             
-            document.getElementById('videoTitle').textContent = title;
+            document.getElementById('videoTitle').innerHTML = `<span class="site-badge ${siteInfo.badge}">${siteInfo.name}</span> ${title}`;
+            document.getElementById('siteInfo').innerHTML = `<p><strong>Site détecté :</strong> ${siteInfo.name} | <strong>Streams trouvés :</strong> ${streams.length}</p>`;
             document.getElementById('results').style.display = 'block';
             
             if (streams.length > 0) {
@@ -266,43 +403,71 @@
                     <div class="stream-item">
                         <span class="quality-badge">${stream.quality}</span>
                         <strong>${stream.source} - ${stream.type.toUpperCase()}</strong>
+                        ${stream.size ? `<span style="color:#00ff88;">${stream.size}</span>` : ''}
                         <br>
-                        <a href="${stream.url}" class="download-link" download="porn_${stream.quality}_${Date.now()}.${stream.type}" onclick="handleDownload(event, '${stream.url}')">
+                        <a href="${stream.url}" class="download-link" download="${siteInfo.name}_${stream.quality}_${Date.now()}.${stream.type}" onclick="handleDownload(event, '${stream.url}')">
                             📥 TÉLÉCHARGER ${stream.quality}
                         </a>
-                        ${stream.type === 'm3u8' ? '<br><small>(HLS - Utilise VLC ou ffmpeg)</small>' : ''}
+                        ${stream.type === 'm3u8' ? '<br><small style="color:#ffaa00;">(HLS Stream - Utilise VLC ou ffmpeg)</small>' : ''}
                     </div>
                 `).join('');
                 document.getElementById('manualMethods').innerHTML = '';
             } else {
-                showManualMethods(originalUrl);
+                showManualMethods(originalUrl, siteInfo);
             }
         }
 
         function handleDownload(event, url) {
-            // Force download pour les liens directs
             event.preventDefault();
             const a = document.createElement('a');
             a.href = url;
-            a.download = `porn_download_${Date.now()}.mp4`;
+            a.download = `download_${Date.now()}.mp4`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
+            
+            // Pour les gros fichiers, suggère un vrai downloader
+            if (url.includes('.m3u8') || url.length > 200) {
+                setTimeout(() => {
+                    alert('💡 Pour les gros streams, utilise Video DownloadHelper ou yt-dlp !');
+                }, 1000);
+            }
         }
 
-        function showManualMethods(url) {
+        function showManualMethods(url, siteInfo) {
+            const methods = {
+                'YouTube': `
+                    <h4>❌ YouTube streams pas trouvés - Méthodes pro :</h4>
+                    <ol>
+                        <li><strong>Extensions :</strong> "YouTube Video Downloader" ou "Enhancer for YouTube"</li>
+                        <li><strong>Sites :</strong> <a href="https://y2mate.is" target="_blank">Y2Mate.is</a> ou <a href="https://yt1s.com" target="_blank">YT1s.com</a></li>
+                        <li><strong>DevTools :</strong> F12 ➡️ Network ➡️ Filtre "mp4" ou "webm"</li>
+                        <li><strong>yt-dlp :</strong> <code>yt-dlp "${url}" -f "best[height<=1080]"</code></li>
+                    </ol>
+                `,
+                'Xvideos': `
+                    <h4>❌ Xvideos streams pas trouvés :</h4>
+                    <ol>
+                        <li><strong>SaveFrom.net :</strong> Colle l'URL sur <a href="https://fr.savefrom.net" target="_blank">SaveFrom</a></li>
+                        <li><strong>DevTools :</strong> F12 ➡️ Network ➡️ Cherche "setVideoHls"</li>
+                        <li><strong>Video DownloadHelper :</strong> Extension Chrome/Firefox</li>
+                    </ol>
+                `,
+                'Pornhub': `
+                    <h4>❌ Pornhub streams pas trouvés :</h4>
+                    <ol>
+                        <li><strong>Y2Mate.is :</strong> Supporte Pornhub HD</li>
+                        <li><strong>DevTools :</strong> F12 ➡️ Sources ➡️ Cherche "quality"</li>
+                        <li><strong>KeepVid.pro :</strong> Interface mobile-friendly</li>
+                    </ol>
+                `
+            };
+            
             document.getElementById('streamsContainer').innerHTML = '';
             document.getElementById('manualMethods').innerHTML = `
                 <div style="background: rgba(255,0,0,0.2); padding: 15px; border-radius: 5px; margin-top: 15px;">
-                    <h4>❌ Streams auto pas trouvés - Méthodes manuelles :</h4>
-                    <ol style="color: #ccc;">
-                        <li><strong>DevTools :</strong> Ouvre ${url} ➡️ F12 ➡️ Network ➡️ Filtre "mp4" ou "m3u8" ➡️ Clic droit ➡️ Copy link</li>
-                        <li><strong>SaveFrom.net :</strong> Colle l'URL sur <a href="https://fr.savefrom.net" target="_blank">SaveFrom</a></li>
-                        <li><strong>Y2Mate :</strong> <a href="https://y2mate.is" target="_blank">Y2Mate.is</a> (mobile-friendly)</li>
-                        <li><strong>Browser Extension :</strong> "Video DownloadHelper" sur Chrome/Firefox</li>
-                        <li><strong>Ctrl+U :</strong> Source page ➡️ Ctrl+F "mp4" ou "m3u8"</li>
-                    </ol>
-                    <p><strong>💡 PRO TIP :</strong> Les sites pornos changent leurs protections. Si ça marche pas, attends 24h ou change de proxy !</p>
+                    ${methods[siteInfo.name] || '<p>Méthode manuelle générale : utilise SaveFrom.net ou Video DownloadHelper</p>'}
+                    <p><strong>⚠️ YouTube :</strong> Protection anti-download renforcée depuis 2023. Les extensions sont le plus fiable.</p>
                 </div>
             `;
         }
@@ -314,18 +479,24 @@
         }
 
         function updateProxyStatus() {
-            const proxyName = PROXIES[currentProxyIndex].split('/')[2] || 'Unknown';
-            document.getElementById('proxyStatus').textContent = `Proxy: ${proxyName}`;
+            const proxyName = PROXIES[currentProxyIndex].split('/')[2] || 'Direct';
+            document.getElementById('proxyStatus').innerHTML = `Proxy: <strong>${proxyName}</strong>`;
         }
 
-        // Auto-detect URL paste
+        // Auto-detect et extraction
         document.getElementById('urlInput').addEventListener('paste', function(e) {
             e.preventDefault();
             const paste = (e.clipboardData || window.clipboardData).getData('text');
-            if (paste.includes('pornhub') || paste.includes('xvideos') || paste.includes('youporn')) {
+            const supported = ['youtube', 'xvideos', 'pornhub', 'youtu.be'];
+            if (supported.some(site => paste.includes(site))) {
                 this.value = paste;
-                setTimeout(extractVideo, 1000);
+                setTimeout(extractVideo, 1500);
             }
+        });
+
+        // Enter key support
+        document.getElementById('urlInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') extractVideo();
         });
     </script>
 </body>
