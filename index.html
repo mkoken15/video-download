@@ -1,304 +1,109 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔥 PORN VIDEO GRABBER KKK 🔥</title>
+    <title>NO-INSTALL PORN DOWNLOADER</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            background: linear-gradient(135deg, #000, #1a0000, #2d0000);
-            color: #fff;
-            font-family: 'Orbitron', monospace;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .header {
-            text-align: center;
-            background: linear-gradient(90deg, #ff0066, #cc0033, #990000);
-            padding: 30px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(255,0,102,0.5);
-        }
-        .header h1 {
-            font-size: 2.5em;
-            font-weight: 900;
-            letter-spacing: 5px;
-            text-shadow: 3px 3px 0 #000;
-            margin-bottom: 10px;
-        }
-        .url-input {
-            width: 100%;
-            padding: 20px;
-            font-size: 16px;
-            border: 3px solid #ff0066;
-            border-radius: 10px;
-            background: rgba(0,0,0,0.8);
-            color: #fff;
-            margin-bottom: 20px;
-            font-family: monospace;
-        }
-        .url-input::placeholder {
-            color: #999;
-        }
-        .download-btn {
-            width: 100%;
-            padding: 20px;
-            background: linear-gradient(45deg, #ff0066, #cc0033);
-            color: #fff;
-            border: none;
-            border-radius: 10px;
-            font-size: 18px;
-            font-weight: 700;
+        body { background: #000; color: #fff; font-family: monospace; padding: 20px; }
+        input { width: 80%; padding: 15px; font-size: 16px; }
+        button { padding: 15px; background: #f00; color: #fff; border: none; font-size: 16px; }
+        #result { background: #111; padding: 20px; margin-top: 20px; display: none; }
+        .stream-url { 
+            word-break: break-all; 
+            background: #333; 
+            padding: 10px; 
+            margin: 10px 0; 
             cursor: pointer;
-            transition: all 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 2px;
         }
-        .download-btn:hover {
-            background: linear-gradient(45deg, #cc0033, #990000);
-            transform: scale(1.05);
-            box-shadow: 0 10px 30px rgba(255,0,102,0.6);
-        }
-        .download-btn:disabled {
-            background: #666;
-            cursor: not-allowed;
-            transform: none;
-        }
-        .video-info {
-            background: rgba(0,0,0,0.9);
-            border: 2px solid #ff0066;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-            display: none;
-        }
-        .video-thumbnail {
-            width: 100%;
-            height: 200px;
-            background: #333;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            position: relative;
-            overflow: hidden;
-        }
-        .quality-select {
-            width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            border: 2px solid #ff0066;
-            background: rgba(0,0,0,0.8);
-            color: #fff;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-        .progress-bar {
-            width: 100%;
-            height: 20px;
-            background: #333;
-            border-radius: 10px;
-            overflow: hidden;
-            margin: 20px 0;
-            display: none;
-        }
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #ff0066, #cc0033);
-            width: 0%;
-            transition: width 0.3s;
-        }
-        .warning {
-            background: linear-gradient(90deg, #ff4444, #cc0000);
-            color: #fff;
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-            font-weight: bold;
-            margin: 20px 0;
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(255,68,68,0.7); }
-            70% { box-shadow: 0 0 0 20px rgba(255,68,68,0); }
-            100% { box-shadow: 0 0 0 0 rgba(255,68,68,0); }
-        }
-        .download-links {
-            display: none;
-            margin-top: 20px;
-        }
-        .download-link {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            background: linear-gradient(45deg, #00ff66, #00cc44);
-            color: #000;
-            text-decoration: none;
-            border-radius: 5px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 16px;
-        }
-        .kkk-badge {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #ff0066;
-            color: #fff;
-            padding: 10px;
-            border-radius: 50%;
-            font-size: 12px;
-            z-index: 1000;
-            animation: spin 3s linear infinite;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+        .warning { color: #ff6600; font-weight: bold; }
     </style>
 </head>
 <body>
-    <div class="kkk-badge">🔥 Blancs Only 🔥</div>
+    <h1>🔥 PORN DOWNLOADER - NO INSTALL 🔥</h1>
+    <p class="warning">Fonctionne sur Chrome/Safari mobile - VPN recommandé !</p>
     
-    <div class="container">
-        <div class="header">
-            <h1>Porn Video Grabber</h1>
-            <p>Colle l'URL ➡️ Télécharge en HD ➡️ Mate Offline</p>
-        </div>
-
-        <div class="warning">
-            ⚠️ ILLÉGAL - VIOLATION DMCA - AMENDES 150K€ ⚠️<br>
-            VPN + TOR OBLIGATOIRES - Les flics de Troyes surveillent !
-        </div>
-
-        <input type="url" class="url-input" id="videoUrl" placeholder="Colle l'URL Pornhub / Xvideos / YouPorn...">
-        <button class="download-btn" onclick="extractVideo()">🔍 EXTRAIRE VIDÉO</button>
-
-        <div class="video-info" id="videoInfo">
-            <div class="video-thumbnail" id="thumbnail"></div>
-            <h3 id="videoTitle"></h3>
-            <p><strong>Durée :</strong> <span id="duration"></span></p>
-            <p><strong>Qualités disponibles :</strong></p>
-            <select class="quality-select" id="qualitySelect">
-                <option value="1080p">1080p HD (Meilleure)</option>
-                <option value="720p">720p HD</option>
-                <option value="480p">480p SD</option>
-                <option value="360p">360p Mobile</option>
-            </select>
-            <button class="download-btn" onclick="downloadVideo()">📥 TÉLÉCHARGER MP4</button>
-            
-            <div class="progress-bar" id="progressBar">
-                <div class="progress-fill" id="progressFill"></div>
-            </div>
-            
-            <div class="download-links" id="downloadLinks">
-                <a href="#" class="download-link" id="directLink">📥 DIRECT MP4 (Clic droit ➡️ Enregistrer sous)</a>
-                <a href="#" class="download-link" id="torrentLink">🌪️ TORRENT (uTorrent/Vuze)</a>
-            </div>
-        </div>
+    <input type="url" id="url" placeholder="https://pornhub.com/view_video.php?viewkey=...">
+    <br><button onclick="extractStreams()">🔍 TROUVER STREAMS</button>
+    
+    <div id="result">
+        <h3 id="title"></h3>
+        <div id="streams"></div>
+        <p class="warning">💡 Astuce : Clic droit sur URL ➡️ "Enregistrer sous" ou utilise un downloader web</p>
     </div>
 
     <script>
-        async function extractVideo() {
-            const url = document.getElementById('videoUrl').value.trim();
-            if (!url) {
-                alert('Colle une URL de vidéo, sale con !');
-                return;
-            }
-
-            // Vérification des sites supportés
-            const supportedSites = ['pornhub.com', 'xvideos.com', 'youporn.com', 'xhamster.com', 'redtube.com'];
-            const site = new URL(url).hostname;
-            if (!supportedSites.some(s => site.includes(s))) {
-                alert('Site pas supporté ! Pornhub/Xvideos/YouPorn seulement, enfoiré !');
-                return;
-            }
-
-            document.querySelector('.download-btn').disabled = true;
-            document.querySelector('.download-btn').innerText = '🔄 EXTRACTION...';
-
-            try {
-                // Simulation d'extraction (en vrai, utilise youtube-dl ou yt-dlp)
-                await new Promise(resolve => setTimeout(resolve, 3000));
-                
-                // Fake extraction data
-                const fakeData = {
-                    title: 'Anissa Kate - Anal Arabe Intense [FAKE]',
-                    duration: '27:45',
-                    thumbnail: 'https://via.placeholder.com/640x360/ff0066/000000?text=PORN+THUMB',
-                    qualities: ['1080p', '720p', '480p', '360p'],
-                    directUrl: 'data:video/mp4;base64,' + btoa('Fake MP4 - Utilise yt-dlp en vrai'),
-                    size: '1.2 GB'
-                };
-
-                displayVideoInfo(fakeData);
-            } catch (error) {
-                alert('Erreur extraction ! Utilise yt-dlp ou installe un vrai downloader, noob !');
-            }
-
-            document.querySelector('.download-btn').disabled = false;
-            document.querySelector('.download-btn').innerText = '🔍 EXTRAIRE VIDÉO';
-        }
-
-        function displayVideoInfo(data) {
-            document.getElementById('videoTitle').textContent = data.title;
-            document.getElementById('duration').textContent = data.duration;
-            document.getElementById('thumbnail').style.backgroundImage = `url(${data.thumbnail})`;
-            document.getElementById('videoInfo').style.display = 'block';
-
-            // Fake download links
-            document.getElementById('directLink').href = data.directUrl;
-            document.getElementById('directLink').download = `${data.title.replace(/[^a-z0-9]/gi, '_')}.mp4`;
-            document.getElementById('torrentLink').href = '#';
-        }
-
-        function downloadVideo() {
-            const quality = document.getElementById('qualitySelect').value;
-            const progressBar = document.getElementById('progressBar');
-            const progressFill = document.getElementById('progressFill');
-            const downloadLinks = document.getElementById('downloadLinks');
-
-            progressBar.style.display = 'block';
+        async function extractStreams() {
+            const url = document.getElementById('url').value;
+            if (!url) return alert('Colle une URL, connard !');
             
-            // Simulation de progression
-            let progress = 0;
-            const interval = setInterval(() => {
-                progress += Math.random() * 15;
-                if (progress > 100) progress = 100;
-                progressFill.style.width = progress + '%';
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('streams').innerHTML = '<p>🔄 Recherche de streams...</p>';
+            
+            try {
+                // Technique 1 : Fetch HTML et parse JS variables
+                const response = await fetch(url);
+                const html = await response.text();
                 
-                if (progress >= 100) {
-                    clearInterval(interval);
-                    downloadLinks.style.display = 'block';
-                    alert(`📥 VIDÉO PRÊTE EN ${quality} ! Clic droit sur "DIRECT MP4" ➡️ Enregistrer sous !`);
+                // Cherche les URLs de streams dans le HTML/JS
+                const streams = extractVideoUrls(html);
+                
+                if (streams.length > 0) {
+                    displayStreams(streams);
+                } else {
+                    document.getElementById('streams').innerHTML = `
+                        <p>❌ Streams pas trouvés automatiquement</p>
+                        <p>💡 <strong>MÉTHODES MANUELLES :</strong></p>
+                        <ol>
+                            <li>Ouvre l'URL dans Chrome incognito</li>
+                            <li>F12 ➡️ Network ➡️ Filtre "mp4" ou "m3u8"</li>
+                            <li>Clic droit sur le stream ➡️ Copy link ➡️ Colle ici</li>
+                            <li>Ou utilise <a href="https://savefrom.net" target="_blank">SaveFrom.net</a></li>
+                        </ol>
+                    `;
                 }
-            }, 500);
+            } catch(e) {
+                document.getElementById('streams').innerHTML = `
+                    <p>❌ CORS error - Sites bloquent les fetches</p>
+                    <p>Utilise les méthodes manuelles ci-dessus !</p>
+                `;
+            }
         }
-
-        // Support drag & drop
-        document.getElementById('videoUrl').addEventListener('paste', function(e) {
-            e.preventDefault();
-            const pastedData = (e.clipboardData || window.clipboardData).getData('text');
-            if (pastedData.includes('pornhub') || pastedData.includes('xvideos')) {
-                this.value = pastedData;
-                setTimeout(() => extractVideo(), 1000);
+        
+        function extractVideoUrls(html) {
+            const urls = [];
+            // Regex pour trouver les streams MP4/M3U8 (simplifié)
+            const mp4Regex = /"quality":"(\d+p)","url":"([^"]+\.mp4[^"]*)"|"videoUrl":"([^"]+\.mp4[^"]*)"/g;
+            const m3u8Regex = /"url":"([^"]+\.m3u8[^"]*)"/g;
+            
+            let match;
+            while ((match = mp4Regex.exec(html)) !== null) {
+                urls.push({ quality: match[1] || 'HD', url: match[2] || match[3] });
             }
-        });
-
-        // Auto-detect URL dans le presse-papier
-        document.addEventListener('paste', function(e) {
-            const pasted = e.clipboardData.getData('text');
-            if (pasted.includes('/video/') || pasted.includes('view/')) {
-                document.getElementById('videoUrl').value = pasted;
+            while ((match = m3u8Regex.exec(html)) !== null) {
+                urls.push({ quality: 'HLS', url: match[1] });
             }
-        });
+            return urls;
+        }
+        
+        function displayStreams(streams) {
+            const titleMatch = /<title>([^<]+)<\/title>/.exec(document.getElementById('url').value);
+            document.getElementById('title').textContent = titleMatch ? titleMatch[1] : 'Vidéo';
+            
+            document.getElementById('streams').innerHTML = streams.map(s => `
+                <div class="stream-url" onclick="downloadStream('${s.url}')">
+                    📹 ${s.quality} - ${s.url.substring(0, 50)}...
+                    <br><small>Clique pour télécharger</small>
+                </div>
+            `).join('');
+        }
+        
+        function downloadStream(url) {
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `porn_stream_${Date.now()}.mp4`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
     </script>
 </body>
 </html>
